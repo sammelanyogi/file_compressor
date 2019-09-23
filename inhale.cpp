@@ -23,19 +23,42 @@ public:
 
 
 };
+void displayHelp(){
+	cout << "Usage:"<< endl << endl 
+	<< "./a.out [inputfile] [options] [outputfile]" << endl<<
+	"options:" << endl <<
+	"-o     output" << endl <<
+	"-d     decompress (give filename to be decompressed and name of required file)" << endl <<
+	"-h     help" << endl ;
+}
 
 int main(int argc, char const *argv[])
 {
 	Param options;
-	options.input_file(argv[1]);
+	if(strcmp(argv[1], "-h")==0){
+		displayHelp();
+	}
+	else{
+		options.input_file(argv[1]);
+	}
+	
 	for (unsigned i = 1; i< argc; i++){
 
 		
 		if ( strcmp(argv[i],"-o") == 0 || strcmp(argv[i],"-O") == 0 ){
-			options.output_file(argv[i+1]);
+			if(i+1==argc){
+				cout<< "output filename not given." << endl;
+			}
+			else {
+				options.output_file(argv[i+1]);
+			}
+			
 		}
 		if (strcmp(argv[i],"-d") == 0 || strcmp(argv[i],"-D") == 0){
 			options.doDecompression();
+			if (i+1==argc){
+				cout << "Arguements not given properly." << endl;
+			}
 			options.input_file(argv[i+1]);
 			if(argc<=i+2){
 				options.output_file("nah");
