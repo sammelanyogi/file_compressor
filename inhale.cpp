@@ -1,5 +1,8 @@
-#include <iostream>
-#include<cstring>
+#include <bits/stdc++.h>
+#include <fstream>
+
+#include "lzm.h"
+
 using namespace std;
 
 class Param {
@@ -11,8 +14,14 @@ public:
 	void output_file(char const *arg){
 		this->output_name = (string) arg;
 	}
+	string output_file(){
+		return this->output_name;
+	}
 	void input_file(char const *arg){
 		this->input_name = (string) arg;
+	}
+	string input_file(){
+		return this->input_name;
 	}
 	void doDecompression(){
 		doEncode = false;
@@ -69,7 +78,20 @@ int main(int argc, char const *argv[])
 
 		}
 	}
-	options.displayOptions();
+	ifstream in;
+	string line;
+	in.open(options.input_file());
 
+	in.seekg(0, in.end);
+	int length = in.tellg();
+	in.seekg(0, in.beg);
+
+	char* buffer = new char [length];
+	
+	in.read (buffer , length);
+	in.close();
+	Lzm lzm;
+	lzm.encode(buffer, length);
+	delete[] buffer;
 	return 0;
 }
