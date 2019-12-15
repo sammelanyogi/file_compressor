@@ -2,36 +2,10 @@
 #include <fstream>
 
 #include "lzm.h"
+#include "param.h"
 
 using namespace std;
 
-class Param {
-private:
-	bool doEncode = true;
-	string output_name = "a.lzm";
-	string input_name = "";
-public:
-	void output_file(char const *arg){
-		this->output_name = (string) arg;
-	}
-	string output_file(){
-		return this->output_name;
-	}
-	void input_file(char const *arg){
-		this->input_name = (string) arg;
-	}
-	string input_file(){
-		return this->input_name;
-	}
-	void doDecompression(){
-		doEncode = false;
-	}
-	void displayOptions(){
-		cout << doEncode << " " << input_name<<" "<< output_name << endl;
-	}
-
-
-};
 void displayHelp(){
 	cout << "Usage:"<< endl << endl 
 	<< "./a.out [inputfile] [options] [outputfile]" << endl<<
@@ -40,7 +14,6 @@ void displayHelp(){
 	"-d     decompress (give filename to be decompressed and name of required file)" << endl <<
 	"-h     help" << endl ;
 }
-
 int main(int argc, char const *argv[])
 {
 	Param options;
@@ -50,10 +23,7 @@ int main(int argc, char const *argv[])
 	else{
 		options.input_file(argv[1]);
 	}
-	
 	for (unsigned i = 1; i< argc; i++){
-
-		
 		if ( strcmp(argv[i],"-o") == 0 || strcmp(argv[i],"-O") == 0 ){
 			if(i+1==argc){
 				cout<< "output filename not given." << endl;
@@ -79,7 +49,6 @@ int main(int argc, char const *argv[])
 		}
 	}
 	ifstream in;
-	string line;
 	in.open(options.input_file());
 
 	in.seekg(0, in.end);
@@ -95,3 +64,4 @@ int main(int argc, char const *argv[])
 	delete[] buffer;
 	return 0;
 }
+

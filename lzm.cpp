@@ -2,8 +2,6 @@
 void Lzm::encode(char * buffer, int length){
     unsigned short code = 256;
     vector<unsigned short> output_code; 
-    // string k = "a";
-    // cout << k + *buffer << endl;
     unordered_map<string, int> table; 
     for (int i = 0; i <= 255; i++) { 
         string ch = ""; 

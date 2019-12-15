@@ -1,6 +1,9 @@
-all: inhale.cpp lzm.cpp
+all: param.cpp inhale.cpp lzm.cpp
+	g++ -c param.cpp -o param
 	g++ -c inhale.cpp -o inhale
 	g++ -c lzm.cpp -o lzm
-	g++ inhale lzm -o out
+	g++ param inhale lzm -o a.out
+	rm inhale lzm param
+
 clean:
-	rm inhale lzm
+	rm sammelan
